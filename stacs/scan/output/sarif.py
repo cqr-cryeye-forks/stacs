@@ -96,7 +96,7 @@ def add_artifact(
 
 def render(
     root: str, findings: List[model.finding.Entry], pack: model.pack.Format
-) -> str:
+) -> dict:
     """Renders down a SARIF document for STACS findings."""
     rules = []
     results = []
@@ -241,4 +241,4 @@ def render(
     }
 
     # Return a stringified JSON representation of the SARIF document.
-    return json.dumps(sarif)
+    return sarif

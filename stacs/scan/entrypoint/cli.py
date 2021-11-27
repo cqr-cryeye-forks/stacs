@@ -2,13 +2,14 @@
 
 SPDX-License-Identifier: BSD-3-Clause
 """
-
+import json
 import logging
 import os
 import sys
 
 import click
 import stacs
+from stacs.scan.constants import OUTPUT_FILE
 
 
 @click.command()
@@ -28,6 +29,11 @@ import stacs
     help="The path to the ignore list to load (if required).",
 )
 @click.option(
+    "--output",
+    help="The path to the result file (only *.json supported).",
+    default=OUTPUT_FILE,
+)
+@click.option(
     "--cache-directory",
     help="The path to use as a cache - used when unpacking archives.",
     default=stacs.scan.constants.CACHE_DIRECTORY,
@@ -37,6 +43,7 @@ def main(
     debug: bool,
     rule_pack: str,
     ignore_list: str,
+    output: str,
     cache_directory: str,
     path: str,
 ) -> None:
@@ -102,3 +109,8 @@ def main(
     # TODO: Add file output as an option.
     logger.info(f"Found {len(findings)} findings")
     print(sarif)
+
+    # Write to file
+    logger.info(f"Write result to file: {output}")
+    with open(output, 'w') as f:
+        json.dump(sarif, f, indent=2)

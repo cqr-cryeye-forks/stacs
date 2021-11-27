@@ -15,3 +15,6 @@ CACHE_DIRECTORY = "/tmp"
 # Define the character to use when constructed paths to findings which are inside of
 # archives.
 ARCHIVE_FILE_SEPARATOR = "!"
+
+# Output filename
+OUTPUT_FILE = "output.json"
